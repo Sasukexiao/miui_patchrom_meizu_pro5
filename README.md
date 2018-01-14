@@ -1,1 +1,1 @@
-# MIUI_patchrom_PRO5
+# MIUI_patchrom_Meizu_PRO5
