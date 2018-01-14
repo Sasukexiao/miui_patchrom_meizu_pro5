@@ -1,0 +1,17 @@
+diff -uNr a/XiaomiServiceFramework/AndroidManifest.xml b/XiaomiServiceFramework/AndroidManifest.xml
+--- a/XiaomiServiceFramework/AndroidManifest.xml	2017-04-27 17:48:54.626551000 +0800
++++ b/XiaomiServiceFramework/AndroidManifest.xml	2017-05-27 00:09:01.000000000 +0800
+@@ -81,12 +81,7 @@
+                 <category android:name="android.intent.category.DEFAULT"/>
+             </intent-filter>
+         </activity>
+-        <activity android:excludeFromRecents="true" android:launchMode="singleInstance" android:name="com.xiaomi.xmsf.ui.WarningActivity" android:theme="@miui:style/Theme.Light.Dialog">
+-            <intent-filter>
+-                <action android:name="com.xiaomi.action.WARN_INVALID_DEVICE_ID"/>
+-                <category android:name="android.intent.category.DEFAULT"/>
+-            </intent-filter>
+-        </activity>
++        <activity android:excludeFromRecents="true" android:launchMode="singleInstance" android:name="com.xiaomi.xmsf.ui.WarningActivity" android:theme="@miui:style/Theme.Light.Dialog"></activity>
+         <service android:exported="true" android:name="com.xiaomi.xmsf.push.service.MiuiPushActivateService"/>
+         <activity android:exported="true" android:name="com.xiaomi.xmsf.typedNotificationShield.NotificationSettingsActivity" android:screenOrientation="portrait" android:theme="@miui:style/Theme.Light">
+             <intent-filter>

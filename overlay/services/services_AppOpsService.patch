@@ -1,0 +1,29 @@
+--- a/services/smali/com/android/server/AppOpsService.smali	2016-12-16 22:13:33.358452000 +0800
++++ b/services/smali/com/android/server/AppOpsService.smali	2016-12-19 11:25:09.303638000 +0800
+@@ -2623,7 +2623,7 @@
+     .line 1238
+     if-ltz p1, :cond_1
+ 
+-    const/16 v0, 0x3f
++    const/16 v0, 0x45
+ 
+     if-ge p1, v0, :cond_1
+ 
+@@ -9464,7 +9464,7 @@
+     if-nez v1, :cond_0
+ 
+     .line 1918
+-    const/16 v3, 0x3f
++    const/16 v3, 0x45
+ 
+     new-array v1, v3, [Z
+ 
+@@ -10012,7 +10012,7 @@
+     const/4 v4, -0x1
+ 
+     .line 863
+-    const/16 v2, 0x3f
++    const/16 v2, 0x45
+ 
+     if-le p1, v2, :cond_0
+ 

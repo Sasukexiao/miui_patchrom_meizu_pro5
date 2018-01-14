@@ -1,0 +1,23 @@
+diff -uNr a/PersonalAssistant/smali/com/miui/personalassistant/cloudsync/b.smali b/PersonalAssistant/smali/com/miui/personalassistant/cloudsync/b.smali
+--- a/PersonalAssistant/smali/com/miui/personalassistant/cloudsync/b.smali	2017-05-04 17:11:23.000000000 +0800
++++ b/PersonalAssistant/smali/com/miui/personalassistant/cloudsync/b.smali	2017-05-04 17:12:00.000000000 +0800
+@@ -1004,7 +1004,9 @@
+ .end method
+ 
+ .method public k(Landroid/content/Context;)J
+-    .locals 6
++    .locals 7
++
++    const/16 v6, 0x10
+ 
+     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+ 
+@@ -1015,7 +1017,7 @@
+ 
+     move-result-object v2
+ 
+-    invoke-static {v2}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
++    invoke-static {v2, v6}, Ljava/lang/Long;->parseLong(Ljava/lang/String;I)J
+     :try_end_0
+     .catch Ljava/lang/NumberFormatException; {:try_start_0 .. :try_end_0} :catch_0
+ 

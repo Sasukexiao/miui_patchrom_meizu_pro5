@@ -1,0 +1,19 @@
+--- a/XiaomiSimActivateService/smali/com/xiaomi/activate/SimStateReceiver.smali	2017-04-26 13:24:15.520265000 +0800
++++ b/XiaomiSimActivateService/smali/com/xiaomi/activate/SimStateReceiver.smali	2017-04-26 13:29:21.000000000 +0800
+@@ -59,7 +59,7 @@
+ 
+     .line 41
+     .local v0, "simIndex":I
+-    if-gez v0, :cond_0
++    if-ltz v0, :cond_0
+ 
+     .line 45
+     sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+@@ -91,6 +91,7 @@
+ 
+     .line 54
+     :cond_0
++    const/4 v0, 0x0
+     invoke-static {v0, p3}, Lcom/xiaomi/activate/SysEventSink;->onSimStateChanged(IZ)V
+ 
+     .line 55

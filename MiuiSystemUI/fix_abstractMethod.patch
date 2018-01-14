@@ -1,0 +1,54 @@
+--- a/MiuiSystemUI/smali/com/android/systemui/statusbar/BaseStatusBar.smali	2017-04-26 09:37:14.000000000 +0800
++++ b/MiuiSystemUI/smali/com/android/systemui/statusbar/BaseStatusBar.smali	2017-04-26 09:39:25.000000000 +0800
+@@ -86,6 +86,8 @@
+ 
+ .field private mOnClickHandler:Landroid/widget/RemoteViews$OnClickHandler;
+ 
++.field private mOrientationListener:Landroid/view/OrientationEventListener;
++
+ .field protected mPanelSlightlyVisible:Z
+ 
+ .field protected mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+@@ -3926,3 +3928,11 @@
+     .line 500
+     return-void
+ .end method
++
++.method public toggleOrientationListener(Z)V
++    .locals 0
++    .param p1, "enable"    # Z
++
++    .prologue
++    return-void
++.end method
+
+--- a/MiuiSystemUI/smali/com/android/systemui/statusbar/CommandQueue$Callbacks.smali	2017-04-26 09:34:19.784265000 +0800
++++ b/MiuiSystemUI/smali/com/android/systemui/statusbar/CommandQueue$Callbacks.smali	2017-04-26 09:41:25.000000000 +0800
+@@ -83,3 +83,6 @@
+ 
+ .method public abstract updateNotification(Landroid/os/IBinder;Lcom/android/systemui/statusbar/ExpandedNotification;)V
+ .end method
++
++.method public abstract toggleOrientationListener(Z)V
++.end method
+
+--- a/MiuiSystemUI/smali/com/android/systemui/statusbar/CommandQueue.smali	2017-04-26 09:34:19.808265000 +0800
++++ b/MiuiSystemUI/smali/com/android/systemui/statusbar/CommandQueue.smali	2017-04-26 09:41:03.000000000 +0800
+@@ -1282,3 +1282,17 @@
+ 
+     throw v1
+ .end method
++
++.method public toggleOrientationListener(Z)V
++    .locals 1
++    .param p1, "enable"    # Z
++
++    .prologue
++    .line 240
++    iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mCallbacks:Lcom/android/systemui/statusbar/CommandQueue$Callbacks;
++
++    invoke-interface {v0, p1}, Lcom/android/systemui/statusbar/CommandQueue$Callbacks;->toggleOrientationListener(Z)V
++
++    .line 239
++    return-void
++.end method

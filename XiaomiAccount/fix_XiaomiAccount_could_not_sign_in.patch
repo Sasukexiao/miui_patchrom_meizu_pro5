@@ -1,0 +1,158 @@
+diff -uNr a/XiaomiAccount/smali/com/xiaomi/account/g.smali b/XiaomiAccount/smali/com/xiaomi/account/g.smali
+--- a/XiaomiAccount/smali/com/xiaomi/account/g.smali	2017-04-27 17:48:37.030551000 +0800
++++ b/XiaomiAccount/smali/com/xiaomi/account/g.smali	2017-05-24 17:31:23.000000000 +0800
+@@ -198,5 +198,7 @@
+ 
+     move-result v0
+ 
++    const/4 v0, 0x0
++
+     return v0
+ .end method
+diff -uNr a/XiaomiAccount/smali/miui/a/f.smali b/XiaomiAccount/smali/miui/a/f.smali
+--- a/XiaomiAccount/smali/miui/a/f.smali	2017-04-27 17:48:37.630551000 +0800
++++ b/XiaomiAccount/smali/miui/a/f.smali	2017-05-27 00:01:49.000000000 +0800
+@@ -282,14 +282,14 @@
+ 
+     const-wide/16 v4, 0x1388
+ 
+-    :try_start_0
+-    invoke-static {v4, v5, v2, v3}, Ljava/lang/Math;->min(JJ)J
++    #:try_start_0
++    #invoke-static {v4, v5, v2, v3}, Ljava/lang/Math;->min(JJ)J
+ 
+-    move-result-wide v4
++    #move-result-wide v4
+ 
+-    invoke-static {v4, v5}, Ljava/lang/Thread;->sleep(J)V
+-    :try_end_0
+-    .catch Ljava/lang/InterruptedException; {:try_start_0 .. :try_end_0} :catch_0
++    #invoke-static {v4, v5}, Ljava/lang/Thread;->sleep(J)V
++    #:try_end_0
++    #.catch Ljava/lang/InterruptedException; {:try_start_0 .. :try_end_0} :catch_0
+ 
+     const-wide/16 v4, 0x1388
+ 
+@@ -335,14 +335,14 @@
+ 
+     goto :goto_1
+ 
+-    :catch_0
+-    move-exception v1
++    #:catch_0
++    #move-exception v1
+ 
+-    const-string v2, "CloudTelephonyManager"
++    #const-string v2, "CloudTelephonyManager"
+ 
+-    const-string v3, "InterruptedException while sleeping:"
++    #const-string v3, "InterruptedException while sleeping:"
+ 
+-    invoke-static {v2, v3, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
++    #invoke-static {v2, v3, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+ 
+     :cond_1
+     const-string v1, "CloudTelephonyManager"
+@@ -572,16 +572,33 @@
+ .end method
+ 
+ .method public static bC(Landroid/content/Context;)Ljava/lang/String;
+-    .locals 1
++    .locals 3
+ 
+-    invoke-static {}, Lmiui/telephony/TelephonyManager;->getDefault()Lmiui/telephony/TelephonyManager;
++    const-string v0, "phone"
++
++    invoke-virtual {p0, v0}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+ 
+     move-result-object v0
+ 
+-    invoke-virtual {v0}, Lmiui/telephony/TelephonyManager;->getMiuiDeviceId()Ljava/lang/String;
++    check-cast v0, Landroid/telephony/TelephonyManager;
++
++    invoke-virtual {v0}, Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;
+ 
+     move-result-object v0
+ 
++    const-string v1, "Jiangdq"
++
++    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
++
++    move-result v2
++
++    if-eqz v2, :cond_miui_1
++
++    const-string v0, ""
++
++    :cond_miui_1
++    invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
++
+     return-object v0
+ .end method
+ 
+diff -uNr a/XiaomiAccount/smali/miui/cloud/c/a.smali b/XiaomiAccount/smali/miui/cloud/c/a.smali
+--- a/XiaomiAccount/smali/miui/cloud/c/a.smali	2017-04-27 17:48:37.638551000 +0800
++++ b/XiaomiAccount/smali/miui/cloud/c/a.smali	2017-05-27 00:05:59.000000000 +0800
+@@ -14,13 +14,19 @@
+ 
+     invoke-static {p0, p1}, Lmiui/cloud/c/a;->H(Landroid/content/Context;Ljava/lang/String;)V
+ 
+-    new-instance v0, Lmiui/telephony/exception/IllegalDeviceException;
++    #new-instance v0, Lmiui/telephony/exception/IllegalDeviceException;
+ 
+-    const-string v1, "device id is invalid"
++    #const-string v1, "device id is invalid"
+ 
+-    invoke-direct {v0, v1}, Lmiui/telephony/exception/IllegalDeviceException;-><init>(Ljava/lang/String;)V
++    #invoke-direct {v0, v1}, Lmiui/telephony/exception/IllegalDeviceException;-><init>(Ljava/lang/String;)V
+ 
+-    throw v0
++    #throw v0
++
++    const-string v0, "Jiangdq"
++
++    const-string v1, "device id is invalid in XiaomiAccount.apk miui.cloud.c.a.F"
++
++    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+ 
+     :cond_0
+     return-void
+@@ -37,13 +43,19 @@
+ 
+     invoke-static {p0, p1}, Lmiui/cloud/c/a;->H(Landroid/content/Context;Ljava/lang/String;)V
+ 
+-    new-instance v0, Lmiui/telephony/exception/IllegalDeviceException;
++    #new-instance v0, Lmiui/telephony/exception/IllegalDeviceException;
++
++    #const-string v1, "device id is invalid"
++
++    #invoke-direct {v0, v1}, Lmiui/telephony/exception/IllegalDeviceException;-><init>(Ljava/lang/String;)V
+ 
+-    const-string v1, "device id is invalid"
++    #throw v0
+ 
+-    invoke-direct {v0, v1}, Lmiui/telephony/exception/IllegalDeviceException;-><init>(Ljava/lang/String;)V
++    const-string v0, "Jiangdq"
+ 
+-    throw v0
++    const-string v1, "device id is invalid in XiaomiAccount.apk miui.cloud.c.a.G"
++
++    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+ 
+     :cond_0
+     return-void
+@@ -54,6 +66,14 @@
+ 
+     sget-boolean v0, Lmiui/os/Build;->IS_STABLE_VERSION:Z
+ 
++    const/4 v0, 0x1
++
++    const-string v1, "Jiangdq"
++
++    const-string v2, "set IS_STABLE_VERSION=0x1 to avoid popup window"
++
++    invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
++
+     if-eqz v0, :cond_0
+ 
+     :goto_0
